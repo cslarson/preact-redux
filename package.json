@@ -1,12 +1,12 @@
 {
-  "name": "react-redux",
+  "name": "preact-redux",
   "version": "4.4.1",
   "description": "Official React bindings for Redux",
   "main": "./lib/index.js",
   "scripts": {
     "build:lib": "babel src --out-dir lib",
-    "build:umd": "cross-env NODE_ENV=development webpack src/index.js dist/react-redux.js",
-    "build:umd:min": "cross-env NODE_ENV=production webpack src/index.js dist/react-redux.min.js",
+    "build:umd": "cross-env NODE_ENV=development webpack src/index.js dist/preact-redux.js",
+    "build:umd:min": "cross-env NODE_ENV=production webpack src/index.js dist/preact-redux.min.js",
     "build": "npm run build:lib && npm run build:umd && npm run build:umd:min && node ./prepublish",
     "clean": "rimraf lib dist coverage",
     "lint": "eslint src test",
@@ -17,7 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/reactjs/react-redux.git"
+    "url": "https://github.com/cslarson/preact-redux.git"
   },
   "files": [
     "dist",
@@ -25,8 +25,7 @@
     "src"
   ],
   "keywords": [
-    "react",
-    "reactjs",
+    "preact",
     "hot",
     "reload",
     "hmr",
@@ -38,9 +37,8 @@
   "author": "Dan Abramov <dan.abramov@me.com> (http://github.com/gaearon)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/gaearon/react-redux/issues"
+    "url": "https://github.com/cslarson/preact-redux/issues"
   },
-  "homepage": "https://github.com/gaearon/react-redux",
   "devDependencies": {
     "babel-cli": "^6.3.17",
     "babel-core": "^6.3.26",
@@ -92,7 +90,10 @@
     "hoist-non-react-statics": "^1.0.3",
     "invariant": "^2.0.0",
     "lodash": "^4.2.0",
-    "loose-envify": "^1.1.0"
+    "loose-envify": "^1.1.0",
+    "preact": "^4.5.1",
+    "preact-compat": "^1.6.1",
+    "proptypes": "^0.14.3"
   },
   "peerDependencies": {
     "react": "^0.14.0 || ^15.0.0-rc.1",
