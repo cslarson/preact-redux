@@ -1,4 +1,4 @@
-import { PropTypes } from 'react'
+import { PropTypes } from 'preact-compat'
 
 export default PropTypes.shape({
   subscribe: PropTypes.func.isRequired,
