@@ -2,7 +2,7 @@
   "name": "preact-redux",
   "version": "4.4.1",
   "description": "Official React bindings for Redux",
-  "main": "./src/index.js",
+  "main": "./lib/index.js",
   "scripts": {
     "build:lib": "babel src --out-dir lib",
     "build:umd": "cross-env NODE_ENV=development webpack src/index.js dist/preact-redux.js",
