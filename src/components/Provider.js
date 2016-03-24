@@ -1,4 +1,4 @@
-import { Component, PropTypes, Children } from 'react'
+import { Component, PropTypes, Children } from 'preact-compat'
 import storeShape from '../utils/storeShape'
 
 let didWarnAboutReceivingStore = false

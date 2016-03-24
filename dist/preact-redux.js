@@ -1,13 +1,13 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("react"), require("redux"));
+		module.exports = factory(require("redux"));
 	else if(typeof define === 'function' && define.amd)
-		define(["react", "redux"], factory);
+		define(["redux"], factory);
 	else if(typeof exports === 'object')
-		exports["PreactRedux"] = factory(require("react"), require("redux"));
+		exports["PreactRedux"] = factory(require("redux"));
 	else
-		root["PreactRedux"] = factory(root["React"], root["Redux"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_17__, __WEBPACK_EXTERNAL_MODULE_18__) {
+		root["PreactRedux"] = factory(root["Redux"]);
+})(this, function(__WEBPACK_EXTERNAL_MODULE_17__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -74,104 +74,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 1 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(setImmediate, clearImmediate) {var nextTick = __webpack_require__(5).nextTick;
-	var apply = Function.prototype.apply;
-	var slice = Array.prototype.slice;
-	var immediateIds = {};
-	var nextImmediateId = 0;
-
-	// DOM APIs, for completeness
-
-	exports.setTimeout = function() {
-	  return new Timeout(apply.call(setTimeout, window, arguments), clearTimeout);
-	};
-	exports.setInterval = function() {
-	  return new Timeout(apply.call(setInterval, window, arguments), clearInterval);
-	};
-	exports.clearTimeout =
-	exports.clearInterval = function(timeout) { timeout.close(); };
-
-	function Timeout(id, clearFn) {
-	  this._id = id;
-	  this._clearFn = clearFn;
-	}
-	Timeout.prototype.unref = Timeout.prototype.ref = function() {};
-	Timeout.prototype.close = function() {
-	  this._clearFn.call(window, this._id);
-	};
-
-	// Does not start the time, just sets up the members needed.
-	exports.enroll = function(item, msecs) {
-	  clearTimeout(item._idleTimeoutId);
-	  item._idleTimeout = msecs;
-	};
-
-	exports.unenroll = function(item) {
-	  clearTimeout(item._idleTimeoutId);
-	  item._idleTimeout = -1;
-	};
-
-	exports._unrefActive = exports.active = function(item) {
-	  clearTimeout(item._idleTimeoutId);
-
-	  var msecs = item._idleTimeout;
-	  if (msecs >= 0) {
-	    item._idleTimeoutId = setTimeout(function onTimeout() {
-	      if (item._onTimeout)
-	        item._onTimeout();
-	    }, msecs);
-	  }
-	};
-
-	// That's not how node.js implements it but the exposed api is the same.
-	exports.setImmediate = typeof setImmediate === "function" ? setImmediate : function(fn) {
-	  var id = nextImmediateId++;
-	  var args = arguments.length < 2 ? false : slice.call(arguments, 1);
-
-	  immediateIds[id] = true;
-
-	  nextTick(function onNextTick() {
-	    if (immediateIds[id]) {
-	      // fn.call() is faster so we optimize for the common use-case
-	      // @see http://jsperf.com/call-apply-segu
-	      if (args) {
-	        fn.apply(null, args);
-	      } else {
-	        fn.call(null);
-	      }
-	      // Prevent ids from leaking
-	      exports.clearImmediate(id);
-	    }
-	  });
-
-	  return id;
-	};
-
-	exports.clearImmediate = typeof clearImmediate === "function" ? clearImmediate : function(id) {
-	  delete immediateIds[id];
-	};
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1).setImmediate, __webpack_require__(1).clearImmediate))
-
-/***/ },
-/* 2 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	exports.__esModule = true;
-
-	var _preactCompat = __webpack_require__(3);
-
-	exports["default"] = _preactCompat.PropTypes.shape({
-	  subscribe: _preactCompat.PropTypes.func.isRequired,
-	  dispatch: _preactCompat.PropTypes.func.isRequired,
-	  getState: _preactCompat.PropTypes.func.isRequired
-	});
-
-/***/ },
-/* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {(function (global, factory) {
@@ -572,6 +474,104 @@ return /******/ (function(modules) { // webpackBootstrap
 	}));
 	//# sourceMappingURL=preact-compat.js.map
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
+
+/***/ },
+/* 2 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(setImmediate, clearImmediate) {var nextTick = __webpack_require__(5).nextTick;
+	var apply = Function.prototype.apply;
+	var slice = Array.prototype.slice;
+	var immediateIds = {};
+	var nextImmediateId = 0;
+
+	// DOM APIs, for completeness
+
+	exports.setTimeout = function() {
+	  return new Timeout(apply.call(setTimeout, window, arguments), clearTimeout);
+	};
+	exports.setInterval = function() {
+	  return new Timeout(apply.call(setInterval, window, arguments), clearInterval);
+	};
+	exports.clearTimeout =
+	exports.clearInterval = function(timeout) { timeout.close(); };
+
+	function Timeout(id, clearFn) {
+	  this._id = id;
+	  this._clearFn = clearFn;
+	}
+	Timeout.prototype.unref = Timeout.prototype.ref = function() {};
+	Timeout.prototype.close = function() {
+	  this._clearFn.call(window, this._id);
+	};
+
+	// Does not start the time, just sets up the members needed.
+	exports.enroll = function(item, msecs) {
+	  clearTimeout(item._idleTimeoutId);
+	  item._idleTimeout = msecs;
+	};
+
+	exports.unenroll = function(item) {
+	  clearTimeout(item._idleTimeoutId);
+	  item._idleTimeout = -1;
+	};
+
+	exports._unrefActive = exports.active = function(item) {
+	  clearTimeout(item._idleTimeoutId);
+
+	  var msecs = item._idleTimeout;
+	  if (msecs >= 0) {
+	    item._idleTimeoutId = setTimeout(function onTimeout() {
+	      if (item._onTimeout)
+	        item._onTimeout();
+	    }, msecs);
+	  }
+	};
+
+	// That's not how node.js implements it but the exposed api is the same.
+	exports.setImmediate = typeof setImmediate === "function" ? setImmediate : function(fn) {
+	  var id = nextImmediateId++;
+	  var args = arguments.length < 2 ? false : slice.call(arguments, 1);
+
+	  immediateIds[id] = true;
+
+	  nextTick(function onNextTick() {
+	    if (immediateIds[id]) {
+	      // fn.call() is faster so we optimize for the common use-case
+	      // @see http://jsperf.com/call-apply-segu
+	      if (args) {
+	        fn.apply(null, args);
+	      } else {
+	        fn.call(null);
+	      }
+	      // Prevent ids from leaking
+	      exports.clearImmediate(id);
+	    }
+	  });
+
+	  return id;
+	};
+
+	exports.clearImmediate = typeof clearImmediate === "function" ? clearImmediate : function(id) {
+	  delete immediateIds[id];
+	};
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2).setImmediate, __webpack_require__(2).clearImmediate))
+
+/***/ },
+/* 3 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	exports.__esModule = true;
+
+	var _preactCompat = __webpack_require__(1);
+
+	exports["default"] = _preactCompat.PropTypes.shape({
+	  subscribe: _preactCompat.PropTypes.func.isRequired,
+	  dispatch: _preactCompat.PropTypes.func.isRequired,
+	  getState: _preactCompat.PropTypes.func.isRequired
+	});
 
 /***/ },
 /* 4 */
@@ -1170,7 +1170,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return preact;
 	});
 	//# sourceMappingURL=preact.js.map
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1).setImmediate))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2).setImmediate))
 
 /***/ },
 /* 5 */
@@ -1278,9 +1278,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.__esModule = true;
 	exports["default"] = undefined;
 
-	var _react = __webpack_require__(17);
+	var _preactCompat = __webpack_require__(1);
 
-	var _storeShape = __webpack_require__(2);
+	var _storeShape = __webpack_require__(3);
 
 	var _storeShape2 = _interopRequireDefault(_storeShape);
 
@@ -1325,11 +1325,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	  Provider.prototype.render = function render() {
 	    var children = this.props.children;
 
-	    return _react.Children.only(children);
+	    return _preactCompat.Children.only(children);
 	  };
 
 	  return Provider;
-	}(_react.Component);
+	}(_preactCompat.Component);
 
 	exports["default"] = Provider;
 
@@ -1348,7 +1348,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	Provider.propTypes = {
 	  store: _storeShape2["default"].isRequired,
-	  children: _react.PropTypes.element.isRequired
+	  children: _preactCompat.PropTypes.element.isRequired
 	};
 	Provider.childContextTypes = {
 	  store: _storeShape2["default"].isRequired
@@ -1366,9 +1366,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	exports["default"] = connect;
 
-	var _preactCompat = __webpack_require__(3);
+	var _preactCompat = __webpack_require__(1);
 
-	var _storeShape = __webpack_require__(2);
+	var _storeShape = __webpack_require__(3);
 
 	var _storeShape2 = _interopRequireDefault(_storeShape);
 
@@ -1723,7 +1723,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.__esModule = true;
 	exports["default"] = wrapActionCreators;
 
-	var _redux = __webpack_require__(18);
+	var _redux = __webpack_require__(17);
 
 	function wrapActionCreators(actionCreators) {
 	  return function (dispatch) {
@@ -2314,12 +2314,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	module.exports = __WEBPACK_EXTERNAL_MODULE_17__;
-
-/***/ },
-/* 18 */
-/***/ function(module, exports) {
-
-	module.exports = __WEBPACK_EXTERNAL_MODULE_18__;
 
 /***/ }
 /******/ ])
